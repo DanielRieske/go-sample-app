@@ -11,4 +11,6 @@ WORKDIR /app
 
 RUN go build main.go
 
+EXPOSE 8080
+
 CMD go run main.go
