@@ -19,7 +19,6 @@ steps:
     - 'europe-west4'
     - '--platform'
     - 'managed'
-    - '--allow-unauthenticated'
 
 images: ['${_IMAGE}']
 
