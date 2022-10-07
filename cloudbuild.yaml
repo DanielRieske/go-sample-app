@@ -24,3 +24,6 @@ images: ['${_IMAGE}']
 
 substitutions:
   _IMAGE: 'gcr.io/${PROJECT_ID}/${REPO_NAME}:${TAG_NAME:-${SHORT_SHA}}'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
