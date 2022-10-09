@@ -22,20 +22,12 @@ jobs:
       uses: 'google-github-actions/auth@v0.4.0'
       with:
         token_format: 'access_token'
-        create_credentials_file: true
         workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_ID }}
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
         access_token_lifetime: '120s'
 
     - name: Set up Cloud SDK
       uses: 'google-github-actions/setup-gcloud@v0.3.0'
-
-    - name: Use gcloud INFO
-      run: 'gcloud info'
-
-    - name: Authenticate Google Cloud SDK
-      run: gcloud auth login --cred-file=${{ steps.auth.outputs.credentials_file_path }}
-
 
     - name: List compute engines
       run: gcloud compute instances list --zones europe-west4
