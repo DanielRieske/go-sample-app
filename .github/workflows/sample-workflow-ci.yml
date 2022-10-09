@@ -21,16 +21,19 @@ jobs:
       uses: 'google-github-actions/auth@v0.4.0'
       with:
         token_format: 'access_token'
-        workload_identity_provider: projects/888836520522/locations/global/workloadIdentityPools/development-identity-pool/providers/github-identity-pool
-        service_account: github-service-account@daniel-playground-365018.iam.gserviceaccount.com
+        create_credentials_file: true
+        workload_identity_provider: ${{ service.WORKLOAD_IDENTITY_PROVIDER_ID }}
+        service_account: ${{ service.SERVICE_ACCOUNT }}
 
     - name: Set up Cloud SDK
-      uses: 'google-github-actions/setup-gcloud@v0'
+      uses: 'google-github-actions/setup-gcloud@v0.3.0'
 
     - name: Use gcloud INFO
       run: 'gcloud info'
 
-    - name: Start Google Cloud Build trigger
-      run: |
-        export CLOUDSDK_CORE_DISABLE_PROMPTS=1
-        gcloud beta builds triggers run ${{ steps.auth.outputs.access_token }} --tag=${{ github.event.release.tag_name }}
+    - name: Authenticate Google Cloud SDK
+      run: gcloud auth login --cred-file=${{ steps.auth.outputs.credentials_file_path }}
+
+
+    - name: List compute engines
+      run: gcloud compute instances list --zones europe-west4
