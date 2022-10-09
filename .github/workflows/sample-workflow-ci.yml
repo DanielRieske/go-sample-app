@@ -22,8 +22,7 @@ jobs:
       with:
         token_format: 'access_token'
         create_credentials_file: true
-        activate_credentials_file: true
-        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_ID }}
+        workload_identity_provider: projects/888836520522/locations/global/workloadIdentityPools/development-identity-pool/providers/github-identity-pool
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
         access_token_lifetime: '120s'
 
