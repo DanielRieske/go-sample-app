@@ -1,1 +1,1 @@
-# go-sample-app
+# go-sample-app v2
