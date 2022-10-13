@@ -1,4 +1,4 @@
-name: Go Sample CI pipeline definition
+name: Assignment Terraform - Infrastructure Test Pipeline
 
 on: 
   push:
@@ -13,7 +13,7 @@ permissions:
 jobs:
   build:
     name: Trigger Google Cloud Build
-    environment: Development
+    environment: Development #Has to change to different service and provider ID profiles
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -29,5 +29,14 @@ jobs:
     - name: Set up Cloud SDK
       uses: 'google-github-actions/setup-gcloud@v0.3.0'
 
-    - name: List compute engines
-      run: gcloud compute instances list --zones europe-west4
+    - name: Setup Terraform
+      uses: 'hashicorp/setup-terraform@v1'
+
+    - name: Initialize Terraform
+      run: terraform init
+
+    - name: Check Terraform files for formatting errors
+      run: terraform fmt -check
+
+    - name: Apply Terraform changes
+      run: terraform apply -var-file=config/test.tfvars
